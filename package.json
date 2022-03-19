@@ -1,0 +1,35 @@
+{
+  "name": "goldrushdiscordbot",
+  "version": "1.0.0",
+  "description": "A Discord bot designed as a game and a homage to the Discovery Channel show called Gold Rush. Commands are entered to mine and search for rare items with rewards and achievements.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToastSweat/GoldRushDiscordBot.git"
+  },
+  "keywords": [
+    "Gold",
+    "Rush",
+    "Discovery",
+    "Channel",
+    "Hoffmans",
+    "Crew",
+    "Mining",
+    "Gambling",
+    "Discord",
+    "Game",
+    "Bot"
+  ],
+  "author": "Toast Sweat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ToastSweat/GoldRushDiscordBot/issues"
+  },
+  "homepage": "https://github.com/ToastSweat/GoldRushDiscordBot#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0"
+  }
+}
