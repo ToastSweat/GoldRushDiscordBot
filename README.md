@@ -12,7 +12,8 @@ A Discord bot designed as a game and a homage to the Discovery Channel show call
 ## Project Information
 ### Requirmenets
 Node JS
-- Node v16.6.0 or higher.
+- Node v16.6.0 or higher
+
 discord.js
 - No Version Specified
 
