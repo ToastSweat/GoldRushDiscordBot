@@ -31,5 +31,8 @@
   "homepage": "https://github.com/ToastSweat/GoldRushDiscordBot#readme",
   "dependencies": {
     "discord.js": "^13.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.11.0"
   }
 }
