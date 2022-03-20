@@ -6,35 +6,40 @@ const { token } = require('./config.json');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 /** GLOBAL VARIABLES */
-const LOG_MESSAGE_LENGTH = 13;
+const LOG_MESSAGE_LENGTH = 80;
 const LOG_MESSAGE_LENGTH_MAX = LOG_MESSAGE_LENGTH - 4;
+
+
 
 /** EVENT: CLIENT : READY */
 client.once('ready', () => {
-    //is this wrong?
-    const DATE = new Date();
-
-    let DATE_STRING = DATE.getMonth() + '/' + DATE.getDate() + '/'  + DATE.getFullYear();
-    let TIME_STRING = DATE.getHours() + ':' + DATE.getMinutes() + ':'  + DATE.getSeconds() + ':'  + DATE.getMilliseconds();
-
-    if (DATE_STRING.length > LOG_MESSAGE_LENGTH_MAX) {
-        DATE_STRING = DATE_STRING.substring(0,LOG_MESSAGE_LENGTH_MAX);
-    }else{
-
-    }
-
-    if (TIME_STRING.length > LOG_MESSAGE_LENGTH_MAX) {
-        TIME_STRING = TIME_STRING.substring(0,LOG_MESSAGE_LENGTH_MAX);
-    }else{
-
-    }
-
-    console.log('*********************************');
-    console.log('* GOLD RUSH DISCORD BOT STARTED *');
-    console.log('* ' + DATE_STRING + ' *');
-    console.log('* ' + TIME_STRING + ' *');
-    console.log('*********************************');
+    sendLogMessage('GOLD RUSH DISCORD BOT STARTED');
 });
 
 /** BOT TOKEN */
 client.login(token);
+
+function sendLogMessage(message) {
+    //is this wrong?
+    const DATE = new Date();
+
+    let DATE_TIME_STRING = DATE.getMonth() + '/' + DATE.getDate() + '/'  + DATE.getFullYear() + ' | ' +
+      DATE.getHours() + ':' + DATE.getMinutes() + ':'  + DATE.getSeconds() + ':'  + DATE.getMilliseconds();
+
+    function truncateLogString(log) {
+      if (log.length > LOG_MESSAGE_LENGTH_MAX) {
+        log = log.substring(0,LOG_MESSAGE_LENGTH_MAX);
+      }else{
+        while(log.length < LOG_MESSAGE_LENGTH_MAX) {
+          log = log + ' ';
+        }
+      }
+      return log;
+    }
+
+    console.log('');
+    console.log('********************************************************************************');
+    console.log('* ' + truncateLogString(message) + ' *');
+    console.log('* ' + truncateLogString(DATE_TIME_STRING) + ' *');
+    console.log('********************************************************************************');
+}
