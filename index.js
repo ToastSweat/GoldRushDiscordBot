@@ -12,16 +12,16 @@
  * [] Store money to database
  * [] Store all collects in database
  * [] Stats command
- * []
- * []
+ * [] Stats per server
+ * [] Global Stats
  * []
  */
 
 
 /** IMPORTS */
-const { Client, Intents } = require('discord.js');
-const { clientId, guildId, token } = require('./config.json');
-
+const fs = require('node:fs');
+const {Client, Collection, Intents} = require('discord.js');
+const {clientId, guildId, token} = require('./config.json');
 
 
 /** CREATE CLIENT INSTANCE */
@@ -29,23 +29,51 @@ const CLIENT = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
+
+/** CLIENT PROPERTIES */
+CLIENT.commands = new Collection();
+
+
+/** COMMANDS SETUP */
+const COMMAND_FILES = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file of COMMAND_FILES) {
+  const COMMAND = require(`./commands/${file}`);
+  // Set a new item in the Collection
+  // With the key as the command name and the value as the exported module
+  CLIENT.commands.set(COMMAND.data.name, COMMAND);
+}
+
+
+/** GLOBAL VARIABLES */
+const LOG_MESSAGE_LENGTH = 80;
+const LOG_MESSAGE_LENGTH_MAX = LOG_MESSAGE_LENGTH - 4;
+
+
 /** EVENT : ready : once */
 CLIENT.once('ready', (c) => {
   sendLogMessage('GOLD RUSH DISCORD BOT STARTED');
   sendLogMessage('LOGGED IN AS : ' + c.user.tag);
 });
 
-/** GLOBAL VARIABLES */
-const LOG_MESSAGE_LENGTH = 80;
-const LOG_MESSAGE_LENGTH_MAX = LOG_MESSAGE_LENGTH - 4;
 
-const GUILD_ID = '858444463432663041';
-const GUILD = CLIENT.guilds.cache.get(GUILD_ID);
+/** EVENT : interactionCreate : on */
+CLIENT.on('interactionCreate', async (interaction) => {
+  if (!interaction.isCommand()) return;
+
+  const command = client.commands.get(interaction.commandName);
+
+  if (!command) return;
+
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+  }
+});
 
 
 /** EVENTS */
-
-
 CLIENT.on('messageCreate', (message) => {
   if (message.content === 'ping') {
     message.reply({
