@@ -60,7 +60,7 @@ CLIENT.once('ready', (c) => {
 CLIENT.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return;
 
-  const command = client.commands.get(interaction.commandName);
+  const command = CLIENT.commands.get(interaction.commandName);
 
   if (!command) return;
 
@@ -75,9 +75,9 @@ CLIENT.on('interactionCreate', async (interaction) => {
 
 /** EVENTS */
 CLIENT.on('messageCreate', (message) => {
-  if (message.content === 'ping') {
+  if (message.content === 'ding') {
     message.reply({
-      content: 'pong',
+      content: 'dong',
     });
   }
 });
