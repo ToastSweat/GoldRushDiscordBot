@@ -11,21 +11,25 @@ module.exports = {
 
 
 function getRandomElement() {
-  let element = 'COPPER';
+  let element = 'IRON';
   const ROLL_INDEX = getRandomInt(100);
 
   console.log('ROLL_INDEX: ' + ROLL_INDEX);
 
   if (ROLL_INDEX <= 35) {
-    element = 'SILVER';
+    element = 'IRON';
   } else if (ROLL_INDEX <= 65) {
+    element = 'SILVER';
+  } else if (ROLL_INDEX <= 98) {
     element = 'GOLD';
-  } else if (ROLL_INDEX <= 99) {
+  } else if (ROLL_INDEX >= 99) {
     element = 'DIAMOND';
   } else {
     const rubyRollIndex = getRandomInt(100);
+    console.log('rubyRollIndex: ' + rubyRollIndex);
     if (rubyRollIndex === 100) {
       const opalRollIndex = getRandomInt(100);
+      console.log('opalRollIndex: ' + opalRollIndex);
       if (opalRollIndex === 100) {
         element = 'OPAL';
       } else {
@@ -68,5 +72,6 @@ function getRandomElement() {
 
 
 function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+  //return Math.floor(Math.random() * max);
+  return Math.floor(Math.random() * max) + 1;
 }
